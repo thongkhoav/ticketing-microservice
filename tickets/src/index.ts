@@ -15,7 +15,7 @@ const startUp = async () => {
     console.log("Connected to MongoDB");
 
     app.listen(PORT, () => {
-      console.log("Auth Server is running on port " + PORT);
+      console.log("Ticket Server is running on port " + PORT);
     });
   } catch (error) {
     console.error(error);

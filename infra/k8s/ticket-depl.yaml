@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-depl 
+  name: ticket-depl 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth
+      app: ticket
   template:
     metadata:
       labels:
-        app: auth
+        app: ticket
     spec:
       containers:
-      - name: auth
-        image: thongkhoav/ticketing-auth
+      - name: ticket
+        image: thongkhoav/ticketing-ticket
         env:
           - name: MONGO_URI
-            value: "mongodb://auth-mongo-srv:27017/auth"
+            value: "mongodb://ticket-mongo-srv:27017/tickets"
           - name: JWT_KEY
             valueFrom:
               secretKeyRef:
@@ -27,12 +27,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-srv
+  name: ticket-srv
 spec:
   selector:
-    app: auth
+    app: ticket
   ports:
-    - name: auth
+    - name: ticket
       protocol: TCP
       port: 3000
       targetPort: 3000

@@ -1,12 +1,14 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import { User } from "../models/user";
-import { BadRequestError } from "../errors/bad-request-error";
+import { User } from "../models/user.model";
+import {
+  BadRequestError,
+  validateRequest,
+  currentUser,
+} from "@finik-tickets/common";
 import "express-async-errors";
 import jwt from "jsonwebtoken";
 import { Password } from "../services/password";
-import { validateRequest } from "../middlewares/validate-request";
-import { currentUser } from "../middlewares/current-user";
 
 const router = express.Router();
 

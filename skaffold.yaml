@@ -15,6 +15,14 @@ build:
       manual:
         - src: "src/**/*.ts"
           dest: .
+  - image: thongkhoav/ticketing-ticket
+    context: tickets
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: "src/**/*.ts"
+          dest: .
   - image: thongkhoav/ticketing-client
     context: client
     docker:
@@ -23,3 +31,4 @@ build:
       manual:
         - src: '**/*.js'
           dest: . 
+  
