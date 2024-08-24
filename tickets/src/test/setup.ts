@@ -7,6 +7,8 @@ declare global {
   var signin: () => string[];
 }
 
+jest.mock("../nats-wrapper");
+
 beforeAll(async () => {
   process.env.JWT_KEY = "testkey";
   mongo = await MongoMemoryServer.create();

@@ -2,6 +2,8 @@ import { BadRequestError, UnAuthorizedError } from "@finik-tickets/common";
 import { Request, Response } from "express";
 import "express-async-errors";
 import { Ticket } from "../../models/ticket.model";
+import { TicketUpdatedPublisher } from "../../events/publishers/ticket-updated.publisher";
+import { natsWrapper } from "../../nats-wrapper";
 
 export const updateTicket = async (req: Request, res: Response) => {
   const { title, price } = req.body;
@@ -23,5 +25,13 @@ export const updateTicket = async (req: Request, res: Response) => {
     price,
   });
   await ticket.save();
+
+  // publish ticket updated event
+  await new TicketUpdatedPublisher(natsWrapper.client).publish({
+    id: ticket.id,
+    title: ticket.title,
+    price: ticket.price,
+    userId: ticket.userId,
+  });
   res.status(200).send(ticket);
 };

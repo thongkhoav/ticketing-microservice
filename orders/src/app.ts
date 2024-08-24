@@ -1,5 +1,5 @@
 import express from "express";
-import { ticketRouter } from "./routes/ticketRouter";
+import { orderRouter } from "./routes/orderRouter";
 import {
   currentUser,
   errorHandler,
@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.use("/api/tickets", ticketRouter);
+app.use("/api/orders", orderRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();
