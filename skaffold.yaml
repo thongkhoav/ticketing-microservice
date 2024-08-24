@@ -7,6 +7,14 @@ build:
   local:
     push: false
   artifacts:
+  - image: thongkhoav/ticketing-client
+    context: client
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: '**/*.js'
+          dest: . 
   - image: thongkhoav/ticketing-auth
     context: auth
     docker:
@@ -23,12 +31,13 @@ build:
       manual:
         - src: "src/**/*.ts"
           dest: .
-  - image: thongkhoav/ticketing-client
-    context: client
+  - image: thongkhoav/ticketing-orders
+    context: orders
     docker:
       dockerfile: Dockerfile
     sync:
       manual:
-        - src: '**/*.js'
-          dest: . 
+        - src: "src/**/*.ts"
+          dest: .
+  
   

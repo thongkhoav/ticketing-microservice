@@ -1,19 +1,21 @@
+import { OrderStatus } from "@finik-tickets/common";
 import mongoose from "mongoose";
+import { TicketDoc } from "./ticket.model";
 
 // Attrs required to create a new Order.
 export interface OrderAttrs {
-  title: string;
-  price: number;
   userId: string;
+  status: OrderStatus;
+  expiresAt: Date;
+  ticket: TicketDoc;
 }
 
 // A OrderDoc interface that describes the properties that a Order Document has.
 interface OrderDoc extends mongoose.Document {
-  title: string;
-  price: number;
   userId: string;
-  createdAt: string;
-  updatedAt: string;
+  status: OrderStatus;
+  expiresAt: Date;
+  ticket: TicketDoc;
 }
 
 //A custom static method build(attrs: OrderAttrs), which takes the attributes needed to create a Order and returns a OrderDoc.
@@ -21,19 +23,25 @@ interface OrderModel extends mongoose.Model<OrderDoc> {
   build(attrs: OrderAttrs): OrderDoc;
 }
 
-const OrderSchema = new mongoose.Schema(
+const orderSchema = new mongoose.Schema(
   {
-    title: {
-      type: String,
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-    },
     userId: {
       type: String,
       required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+      enum: Object.values(OrderStatus),
+      default: OrderStatus.Created,
+    },
+    expiresAt: {
+      type: mongoose.Schema.Types.Date,
+      required: true,
+    },
+    ticket: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Ticket",
     },
   },
   {
@@ -47,10 +55,10 @@ const OrderSchema = new mongoose.Schema(
   }
 );
 
-OrderSchema.statics.build = (attrs: OrderAttrs): OrderDoc => {
+orderSchema.statics.build = (attrs: OrderAttrs): OrderDoc => {
   return new Order(attrs);
 };
 
-const Order = mongoose.model<OrderDoc, OrderModel>("Order", OrderSchema);
+const Order = mongoose.model<OrderDoc, OrderModel>("Order", orderSchema);
 
 export { Order };

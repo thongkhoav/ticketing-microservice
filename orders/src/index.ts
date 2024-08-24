@@ -40,7 +40,7 @@ const startUp = async () => {
 
     const PORT = 3000;
     app.listen(PORT, () => {
-      console.log("Ticket Server is running on port " + PORT);
+      console.log("Order Server is running on port " + PORT);
     });
   } catch (error) {
     console.error(error);
