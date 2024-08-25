@@ -26,6 +26,7 @@ export abstract class Listener<T extends Event> {
       .setAckWait(this.ackWait);
   }
 
+  // listen call onMessage method when message is received
   listen() {
     const subscription = this.client.subscribe(
       this.subject,
