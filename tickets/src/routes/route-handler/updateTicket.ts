@@ -20,6 +20,10 @@ export const updateTicket = async (req: Request, res: Response) => {
     throw new UnAuthorizedError();
   }
 
+  if (ticket.orderId) {
+    throw new BadRequestError("Cannot edit a reserved ticket");
+  }
+
   ticket.set({
     title,
     price,
@@ -32,6 +36,7 @@ export const updateTicket = async (req: Request, res: Response) => {
     title: ticket.title,
     price: ticket.price,
     userId: ticket.userId,
+    version: ticket.version,
   });
   res.status(200).send(ticket);
 };

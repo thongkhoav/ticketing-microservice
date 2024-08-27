@@ -1,6 +1,7 @@
 import { OrderStatus } from "@finik-tickets/common";
 import mongoose from "mongoose";
 import { TicketDoc } from "./ticket.model";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 // Attrs required to create a new Order.
 export interface OrderAttrs {
@@ -16,6 +17,7 @@ interface OrderDoc extends mongoose.Document {
   status: OrderStatus;
   expiresAt: Date;
   ticket: TicketDoc;
+  version: number;
 }
 
 //A custom static method build(attrs: OrderAttrs), which takes the attributes needed to create a Order and returns a OrderDoc.
@@ -54,6 +56,9 @@ const orderSchema = new mongoose.Schema(
     },
   }
 );
+
+orderSchema.set("versionKey", "version");
+orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (attrs: OrderAttrs): OrderDoc => {
   return new Order(attrs);
