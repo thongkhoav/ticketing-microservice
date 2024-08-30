@@ -14,7 +14,6 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
     // check update event can be processed
     // find ticket with version less than incoming version
     const ticket = await Ticket.findByEvent(data);
-    console.log("ticket", ticket);
 
     if (!ticket) {
       throw new Error("Ticket not found");

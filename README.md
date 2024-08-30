@@ -1,8 +1,14 @@
 - skaffold dev
 
+### Host File Tweak
+
+- C:\Windows\System32\Drivers\etc\hosts
+
 ### share JWT_KEY to all pods
 
 - kubectl create secret generic jwt-secret --from-literal=JWT_KEY=SECKET_KEY
+- kubectl create secret generic vnp_TmnCode --from-literal=vnp_TmnCode=VOL2B57T
+- kubectl create secret generic vnp_HashSecret --from-literal=vnp_HashSecret=VTNYZR0PIFRJM027HYGREYISVFOG8AZF
 
 ### upload package to npmjs
 

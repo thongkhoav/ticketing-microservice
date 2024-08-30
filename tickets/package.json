@@ -42,6 +42,7 @@
     "express-async-errors": "^3.1.1",
     "express-validator": "^7.2.0",
     "jsonwebtoken": "^9.0.2",
+    "kafkajs": "^2.2.4",
     "mongoose": "^8.5.3",
     "mongoose-update-if-current": "^1.4.0",
     "node-nats-streaming": "^0.3.2",
