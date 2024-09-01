@@ -13,7 +13,7 @@ export * from "./middlewares/require-auth";
 export * from "./middlewares/validate-request";
 
 // Events
-// export * from "./events/base-listener";
+export * from "./events/base-producer";
 // export * from "./events/base-publisher";
 export * from "./events/topics";
 export * from "./events/ticket-created-event.type";
