@@ -11,8 +11,8 @@ import {
   validateRequest,
 } from "@finik-tickets/common";
 import { body } from "express-validator";
-import { PaymentCreatedPublisher } from "../events/publishers/payment-created-publisher";
-import { natsWrapper } from "../nats-wrapper";
+import { PaymentCreatedProducer } from "../events/producers/payment-created-producer";
+import { kafkaWrapper } from "../kafka-wrapper";
 const { v4: uuidv4 } = require("uuid");
 
 const router = express.Router();
@@ -200,7 +200,7 @@ router.get("/vnpay_ipn", async function (req, res, next) {
               { status: OrderStatus.Complete, payDate: createDate }
             );
             console.log(updatedOrder);
-            await new PaymentCreatedPublisher(natsWrapper.client).publish({
+            await new PaymentCreatedProducer(kafkaWrapper.producer).publish({
               orderId: updatedOrder!.id,
             });
 

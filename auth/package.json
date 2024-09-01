@@ -36,7 +36,7 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@finik-tickets/common": "^1.0.3",
+    "@finik-tickets/common": "^1.0.15",
     "@types/jsonwebtoken": "^9.0.6",
     "bcrypt": "^5.1.1",
     "cookie-session": "^2.1.0",

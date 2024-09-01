@@ -6,8 +6,8 @@ import {
   OrderStatus,
   UnAuthorizedError,
 } from "@finik-tickets/common";
-import { OrderCancelledPublisher } from "../../events/publishers/order-cancelled.publisher";
-import { natsWrapper } from "../../nats-wrapper";
+import { OrderCancelledProducer } from "../../events/producers/order-cancelled-producer";
+import { kafkaWrapper } from "../../../kafka-wrapper";
 
 export const cancelOrder = async (req: Request, res: Response) => {
   const order = await Order.findOne({
@@ -28,7 +28,7 @@ export const cancelOrder = async (req: Request, res: Response) => {
   order.status = OrderStatus.Cancelled;
   await order.save();
 
-  await new OrderCancelledPublisher(natsWrapper.client).publish({
+  await new OrderCancelledProducer(kafkaWrapper.producer).publish({
     id: order.id,
     version: order.version,
     ticket: {

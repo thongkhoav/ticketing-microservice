@@ -1,6 +1,6 @@
 import { Queue, Worker } from "bullmq";
-import { ExpirationCompletePublisher } from "../events/publishers/expiration-complete-publisher";
-import { natsWrapper } from "../nats-wrapper";
+import { ExpirationCompleteProducer } from "../events/producers/expiration-complete-producer";
+import { kafkaWrapper } from "../kafka-wrapper";
 
 interface Payload {
   orderId: string;
@@ -23,7 +23,7 @@ const expirationWoker = new Worker<Payload>(
     // when order created,  add job delay 15p
     // after 15p, worker will publish event order complete
     console.log("Process job", job.data);
-    await new ExpirationCompletePublisher(natsWrapper.client).publish({
+    await new ExpirationCompleteProducer(kafkaWrapper.producer).publish({
       orderId: job.data.orderId,
     });
   },

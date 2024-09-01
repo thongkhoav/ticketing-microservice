@@ -16,14 +16,12 @@ spec:
       - name: ticket
         image: thongkhoav/ticketing-ticket
         env:
-          - name: NATS_CLIENT_ID
+          - name: KAFKA_URL
+            value: "my-cluster-kafka-brokers.kafka.svc.cluster.local:9092"
+          - name: KAFKA_CLIENT_ID
             valueFrom:
               fieldRef:
                 fieldPath: metadata.name #pod name
-          - name: NATS_URL
-            value: "http://nats-srv:4222"
-          - name: NATS_CLUSTER_ID
-            value: ticketing
           - name: MONGO_URI
             value: "mongodb://ticket-mongo-srv:27017/tickets"
           - name: JWT_KEY

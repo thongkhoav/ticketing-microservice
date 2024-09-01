@@ -1,3 +1,9 @@
+### Strimzi Kafka in Kubernetes
+
+- kafka strimzi: https://strimzi.io/quickstarts/
+
+### Run skaffold
+
 - skaffold dev
 
 ### Host File Tweak

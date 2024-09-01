@@ -1,34 +1,24 @@
-import { OrderCreatedListener } from "./events/listeners/order-created-listener";
-import { natsWrapper } from "./nats-wrapper";
+import { consumerHandler } from "./events/consumers/consumer-handler";
+import { kafkaWrapper } from "./kafka-wrapper";
 
 const startUp = async () => {
-  if (!process.env.NATS_CLUSTER_ID) {
-    throw new Error("NATS_CLUSTER_ID must be defined");
-  }
-  if (!process.env.NATS_URL) {
-    throw new Error("NATS_URL must be defined");
-  }
-  if (!process.env.NATS_CLIENT_ID) {
-    throw new Error("NATS_CLIENT_ID must be defined");
+  if (!process.env.KAFKA_URL) {
+    throw new Error("KAFKA_URL must be defined");
   }
 
+  if (!process.env.KAFKA_CLIENT_ID) {
+    throw new Error("KAFKA_CLIENT_ID must be defined");
+  }
   try {
-    // init natsWrapper for app to use
-    await natsWrapper.connect(
-      process.env.NATS_CLUSTER_ID,
-      process.env.NATS_CLIENT_ID,
-      process.env.NATS_URL
+    await kafkaWrapper.connect(process.env.KAFKA_CLIENT_ID, [
+      process.env.KAFKA_URL,
+    ]);
+
+    await consumerHandler(
+      kafkaWrapper.consumer,
+      kafkaWrapper.admin,
+      kafkaWrapper.producer
     );
-
-    // Graceful shutdown
-    natsWrapper.client.on("close", () => {
-      console.log("NATS connection closed");
-      process.exit();
-    });
-    process.on("SIGINT", () => natsWrapper.client.close());
-    process.on("SIGTERM", () => natsWrapper.client.close());
-
-    new OrderCreatedListener(natsWrapper.client).listen();
   } catch (error) {
     console.error(error);
   }

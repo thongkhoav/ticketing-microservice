@@ -26,7 +26,7 @@
     "ts-jest": "^29.2.4"
   },
   "dependencies": {
-    "@finik-tickets/common": "^1.0.10",
+    "@finik-tickets/common": "^1.0.15",
     "bullmq": "^5.12.10",
     "node-nats-streaming": "^0.3.2",
     "ts-node": "^10.9.2",

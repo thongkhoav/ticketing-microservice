@@ -7,8 +7,8 @@ import { Request, Response } from "express";
 import "express-async-errors";
 import { Ticket } from "../../models/ticket.model";
 import { Order } from "../../models/order.model";
-import { OrderCreatedPublisher } from "../../events/publishers/order-created.publisher";
-import { natsWrapper } from "../../nats-wrapper";
+import { OrderCreatedProducer } from "../../events/producers/order-created-producer";
+import { kafkaWrapper } from "../../../kafka-wrapper";
 
 const EXPIRATION_WINDOW_SECONDS = 15 * 60;
 
@@ -38,7 +38,7 @@ export const createOrder = async (req: Request, res: Response) => {
 
   await order.save();
 
-  await new OrderCreatedPublisher(natsWrapper.client).publish({
+  await new OrderCreatedProducer(kafkaWrapper.producer).publish({
     id: order.id,
     status: order.status,
     userId: order.userId,

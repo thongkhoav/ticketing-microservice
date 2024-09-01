@@ -34,7 +34,7 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@finik-tickets/common": "^1.0.8",
+    "@finik-tickets/common": "^1.0.15",
     "@types/jsonwebtoken": "^9.0.6",
     "cookie-session": "^2.1.0",
     "dotenv": "^16.4.5",
@@ -45,7 +45,6 @@
     "kafkajs": "^2.2.4",
     "mongoose": "^8.5.3",
     "mongoose-update-if-current": "^1.4.0",
-    "node-nats-streaming": "^0.3.2",
     "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0"
