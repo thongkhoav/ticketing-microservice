@@ -6,7 +6,7 @@ interface Event {
   data: any;
 }
 
-export abstract class Publisher<T extends Event> {
+export abstract class BaseProducer<T extends Event> {
   abstract topic: T["topic"];
   private _producer: Producer;
 
