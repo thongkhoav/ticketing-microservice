@@ -13,9 +13,9 @@ export * from "./middlewares/require-auth";
 export * from "./middlewares/validate-request";
 
 // Events
-export * from "./events/base-listener";
-export * from "./events/base-publisher";
-export * from "./events/subjects";
+// export * from "./events/base-listener";
+// export * from "./events/base-publisher";
+export * from "./events/topics";
 export * from "./events/ticket-created-event.type";
 export * from "./events/ticket-updated-event.type";
 export * from "./events/types/order-status";
