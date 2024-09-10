@@ -13,8 +13,8 @@
 ### share JWT_KEY to all pods
 
 - kubectl create secret generic jwt-secret --from-literal=JWT_KEY=SECKET_KEY
-- kubectl create secret generic vnp_TmnCode --from-literal=vnp_TmnCode=VOL2B57T
-- kubectl create secret generic vnp_HashSecret --from-literal=vnp_HashSecret=VTNYZR0PIFRJM027HYGREYISVFOG8AZF
+- kubectl create secret generic vnp_TmnCode --from-literal=vnp_TmnCode="from zalo sandbox"
+- kubectl create secret generic vnp_HashSecret --from-literal=vnp_HashSecret="from zalo sandbox"
 
 ### upload package to npmjs
 
