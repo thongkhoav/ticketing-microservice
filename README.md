@@ -1,3 +1,7 @@
+### To use zalo payment sandbox
+
+- Add payments/config/production.json (production.json data from sign up zalo sandbox)
+
 ### Strimzi Kafka in Kubernetes
 
 - kafka strimzi: https://strimzi.io/quickstarts/
