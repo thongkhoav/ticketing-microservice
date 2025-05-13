@@ -28,11 +28,14 @@ export const consumerHandler = async (
     throw new Error("Kafka Consumer is required");
   }
   await kafkaAdmin?.connect();
+  // Create topics if they do not exist
+  // Example topics: [{ topic: "order:created" }, { topic: "order:cancelled" }]
   await kafkaAdmin?.createTopics({
     topics: Object.values(TopicConsume).map((topic) => ({ topic })),
   });
 
   // Subscribe to multiple topics
+  // Example topics: ["order:created", "order:cancelled"]
   await consumer.subscribe({
     topics: Object.values(TopicConsume),
     fromBeginning: true,
